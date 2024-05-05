@@ -31,7 +31,28 @@ def sign_up_data(request):
             return redirect('/dashboard/')
         
 def viewstudents(request):
-    return render(request,"viewstudents.html")
+    course_obj = Course.objects.all()
+    return render(request, "viewstudents.html", {"course_obj":course_obj})
+
+def add_student(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        mobile_no = request.POST.get('mobile_no')
+        college = request.POST.get('college')
+        degree = request.POST.get('degree')
+        address = request.POST.get('address')
+        image = request.FILES.get('image')
+        course_id = request.POST.get('courses')
+        new_course = Course.objects.get(id=course_id)
+        if Student.objects.filter(email=email).exists():
+            return HttpResponse("Email Already Exists")
+        elif Student.objects.filter(mobile_no=mobile_no).exists():
+            return HttpResponse("Mobile Number Already Registered")
+        else:
+            Student.objects.create(name=name, email=email,mobile_no=mobile_no, college=college, degree=degree,
+                                   address=address, image=image, courses=new_course)
+            return redirect("/viewstudents/")
 
 def profile(request):
     return render(request,"profile.html")
@@ -40,4 +61,16 @@ def dashboard(request):
     return render(request,"dashboard.html")
 
 def courses(request):
-    return render(request,"courses.html")
+    course_obj = Course.objects.all()
+    return render(request, "courses.html", {"course_obj":course_obj})
+
+def course_registration(request):
+    if request.method == "POST":
+        course_name = request.POST['course_name']
+        fees = request.POST['fees']
+        duration = request.POST['duration']
+        if Course.objects.filter(course_name=course_name).exists():
+            return HttpResponse("Course Already Exists")
+        else:
+            Course.objects.create(course_name=course_name, fees=fees, duration=duration)
+            return redirect("/courses/")
