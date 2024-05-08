@@ -147,6 +147,14 @@
 
           </div>
         </div>
+        <form class="form-inline my-2 my-lg-0" action="/search/">
+          <div class="col-lg-4">
+          <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+        </div>
+        <div class="col-lg-6">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </div>         
+      </form>
 
       </div>
       <div class="row mt-4 mb-4">
@@ -175,23 +183,26 @@
                       </th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course
                       </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fees
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address
                       </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        Duration</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="align-middle text-sm">Surya</td>
-                      <td class="align-middle text-sm">Suryapratapsoni@gmail.com</td>
-                      <td class="align-middle text-center text-sm">3265478914</td>
-                      <td class="text-center text-sm">MGC Satna</td>
-                      <td class="text-center text-sm">BCA</td>
-                      <td class="text-center text-sm">Nodejs</td>
-                      <td class="text-center text-sm">35000</td>
-                      <td class="text-center text-sm">6 Months</td>
+                      {% for s in student_obj %}
+                      <td class="align-middle text-sm"><a href="{% url 'student_profile' s.id %}">{{s.name}}</a></td>
+                      <td class="align-middle text-sm">{{s.email}}</td>
+                      <td class="align-middle text-center text-sm">{{s.mobile_no}}</td>
+                      <td class="text-center text-sm">{{s.college}}</td>
+                      <td class="text-center text-sm">{{s.degree}}</td>
+                      <td class="text-center text-sm">{{s.courses}}</td>
+                      <td class="text-center text-sm">{{s.address}}</td>
+                      <td><a href="{% url 'delete_student' s.id %}" type="button" class="btn btn-outline-dark">Delete</a>
+                          &nbsp;
+                          <a href="{% url 'update_student' s.id %}" type="button" class="btn btn-outline-dark">Update</a>
+                      </td>
                     </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
@@ -212,7 +223,8 @@
             </div>
             <div class="modal-body">
               <div class="card-body">
-                <form role="form" action="/add_students/" method="POST">
+                <form role="form" action="/add_students/" method="POST" enctype="multipart/form-data"
+                >
                   {% csrf_token %}
                   <div class="row">
                     <div class="col-lg-6 col-md-6">
@@ -248,16 +260,17 @@
                       </div>
                     </div>
 
-                    {% for c in course_obj %}
                     <div class="col-lg-6 col-md-6">
                       <div class="input-group input-group-outline mb-3">
                         <select class="form-select form-control" placeholder="courses" onfocus="focused(this)"
                           onfocusout="defocused(this)" aria-label="Default select example" name="courses">
-                          <option value="{{c.id}}">{{c.course_name}} {{c.fees}} {{c.duration}}</option>
+                          {% for c in course_obj %}
+                          <option value={{c.id}}>{{c.course_name}} {{c.fees}} {{c.duration}}</option>
+                          {% endfor %}
                         </select>
                       </div>
                     </div>
-                    {% endfor %}
+                
                     <!-- <div class="mb-3">
                       <label for="formFile" class="form-label">Default file input example</label>
                       
@@ -284,6 +297,14 @@
                     </div>
                   </div>
                 </form>
+                {% if messages %}
+                  {% for message in messages%}
+                  <div class='alert alert-{{messages.tags}} alert-dismissible fade show' role='alert'>
+                    <strong>Message: </strong> {{message}}
+                    <button type='button' class='btn-close' date-bs-dismiss='alert' aria-label='Close'></button>
+                  </div>
+                  {% endfor %}
+                  {% endif %}
               </div>
             </div>
             <div class="modal-footer">
