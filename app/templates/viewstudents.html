@@ -139,22 +139,25 @@
                 class="icon icon-lg icon-shape bg-gradient-info shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                 <i class="material-icons opacity-10">weekend</i>
               </div>
+              
               <div class="text-end pt-1">
                 <a class="btn bg-gradient-dark mb-0" href="javascript:;" data-bs-toggle="modal"
                   data-bs-target="#exampleModal"><i class="material-icons text-sm">add</i>Add Students</a>
               </div>
             </div>
+            
+            <form class="form-inline my-2 my-lg-0" action="/search/">
+              <div class="col-lg-4">
+              <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+            </div>
+            <div class="col-lg-6">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </div>         
+          </form>
+  
 
-          </div>
+          {% comment %} </div> {% endcomment %}
         </div>
-        <form class="form-inline my-2 my-lg-0" action="/search/">
-          <div class="col-lg-4">
-          <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
-        </div>
-        <div class="col-lg-6">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </div>         
-      </form>
 
       </div>
       <div class="row mt-4 mb-4">
@@ -190,7 +193,7 @@
                   <tbody>
                     <tr>
                       {% for s in student_obj %}
-                      <td class="align-middle text-sm"><a href="{% url 'student_profile' s.id %}">{{s.name}}</a></td>
+                      <td class="align-middle text-sm"><a href="{% url 'profile' s.id %}">{{s.name}}</a></td>
                       <td class="align-middle text-sm">{{s.email}}</td>
                       <td class="align-middle text-center text-sm">{{s.mobile_no}}</td>
                       <td class="text-center text-sm">{{s.college}}</td>

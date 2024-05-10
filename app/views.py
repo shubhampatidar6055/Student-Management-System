@@ -84,22 +84,24 @@ def search(request):
     if 'q' in request.GET:
         q = request.GET['q']
         multiple_q = Q(Q(name__icontains = q) | Q(email__icontains = q)) | Q(mobile_no__icontains = q)
-        student =Student.objects.filter(multiple_q)
+        student_obj =Student.objects.filter(multiple_q)
+        print(multiple_q)
     else:
-        student = Student.objects.all()
-        return render(request, "viewstudents.html", {"student":student})
+        student_obj = Student.objects.all()
+    context = {'student_obj':student_obj}
+    return render(request, "viewstudents.html", context)
     
-def student_profile(request,pk):
-    Student.objects.get(id=pk)
-    return redirect('/profile/')
+# def student_profile(request,pk):
+#     Student.objects.get(id=pk)
+#     return redirect('/profile/')
 
 def delete_student(request,pk):
     Student.objects.get(id=pk).delete()
     return redirect('/viewstudents/')
 
-def profile(request):
-    student_obj = Student.objects.all()
-    return render(request,"profile.html",{"student_obj":student_obj})
+def profile(request,pk):
+    student_obj = Student.objects.get(id=pk)
+    return render(request, "profile.html", {"student_obj":student_obj})
 
 def dashboard(request):
     return render(request,"dashboard.html")

@@ -222,19 +222,15 @@
         <div class="row gx-4 mb-2">
           <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
-              {% for s in student_obj %}
-              <img src="{% static 'app/s.image.jpg' %}}" alt="Image Description" class="w-100 border-radius-lg shadow-sm">
+              <img src="{{ student_obj.image.url }}" alt="Image Description" class="w-100 border-radius-lg shadow-sm">
             </div>
-            {% endfor %}
           </div>
           <div class="col-auto my-auto">
             <div class="h-100">
               
              <h5 class="mb-1">
-                {% for s in student_obj %}
-                <a href="">{{s.name}}</a>
+                <a href="">{{student_obj.name}}</a>
               </h5>
-              {% endfor %}
             </div>
           </div>
           <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
@@ -278,16 +274,14 @@
                 <div class="card-body p-3">
                   
                   <hr class="horizontal gray-light my-4">
-                  {% for s in student_obj  %}
                   <ul class="list-group">
-                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Name:</strong> &nbsp;{{s.name}} </li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{s.email}}</li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile-no:</strong> &nbsp;{{s.mobile_no}} </li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">college:</strong> &nbsp; {{s.college}}</li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Course:</strong> &nbsp; {{s.courses}}</li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Degree:</strong> &nbsp; {{s.degree}}</li>
+                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Name:</strong> &nbsp;{{student_obj.name}} </li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{student_obj.email}}</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile-no:</strong> &nbsp;{{student_obj.mobile_no}} </li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">college:</strong> &nbsp; {{student_obj.college}}</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Course:</strong> &nbsp; {{student_obj.courses}}</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Degree:</strong> &nbsp; {{student_obj.degree}}</li>
                     <li class="list-group-item border-0 ps-0 pb-0">
-                    {% endfor %}
                     </li>
                   </ul>
                 </div>
