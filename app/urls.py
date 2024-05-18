@@ -2,6 +2,8 @@ from django.urls import path
 from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
+from .api import*
+
 urlpatterns = [
     path("",index),
     path("sign_in/",sign_in),
@@ -20,5 +22,10 @@ urlpatterns = [
     path("course_registration/",course_registration),
     path("delete_course/<int:pk>/", delete_course, name="delete"),
     path("update_course/<int:uid>/", update_course, name="update_course"),
-    path("update_courses/", update_courses)
+    path("update_courses/", update_courses),
+    
+    # This is Api Url
+    path("api/user/",Userapi.as_view()),
+    path("api/updateuserapi/<int:pk>/",updateuserapi.as_view()),
+    path("api/deleteuserapi/<int:pk>/",deleteuserapi.as_view()),
 ]+ static(settings.MEDIA_URL, document_root =settings.MEDIA_ROOT)
