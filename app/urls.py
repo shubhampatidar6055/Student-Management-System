@@ -28,4 +28,10 @@ urlpatterns = [
     path("api/user/",Userapi.as_view()),
     path("api/updateuserapi/<int:pk>/",updateuserapi.as_view()),
     path("api/deleteuserapi/<int:pk>/",deleteuserapi.as_view()),
+    path("api/course/",Courserapi.as_view()),
+    path("api/updatecourseapi/<int:pk>/",updatecourseapi.as_view()),
+    path("api/deletecourseapi/<int:pk>/",deletecourseapi.as_view()),
+    path("api/student/",Studentapi.as_view()),
+    path("api/updatestudentapi/<int:pk>/",updatestudentseapi.as_view()),
+    path("api/deletestudentapi/<int:pk>/",deletestudentapi.as_view()),
 ]+ static(settings.MEDIA_URL, document_root =settings.MEDIA_ROOT)
